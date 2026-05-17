@@ -1,4 +1,4 @@
-# Cognitive Toolkit
+# Mindframes
 
 This repository contains structured thinking skills for AI agents. Skills are in `skills/`.
 
