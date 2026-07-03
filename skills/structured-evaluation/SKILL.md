@@ -20,6 +20,10 @@ fully formed and optimism buries risk before it's named).
 This skill is an original implementation. It is not affiliated with or endorsed by any
 third-party framework owner.
 
+**Skip check:** If the decision is trivial — one option is obviously dominant, or the
+answer fits in a paragraph — say so and answer directly. Do not run frames on questions
+that don't need them.
+
 ## The frames
 
 Five content frames plus two bookend frames. Each frame produces a short pass — usually
@@ -60,6 +64,11 @@ by combining frames when none fit.
 **Retrospective** — when reviewing outcomes:
 `Scope → Evidence → Pulse → Risk → Value → Options → Synthesis`
 
+**Lite** — when the question is real but small (a single choice, low stakes, evidence
+already in hand):
+`Scope → Risk → Value → Synthesis`
+Prefer running the Lite sequence well over running a full sequence thinly.
+
 The principle behind sequencing: gather information before judging; keep critical and
 optimistic passes adjacent so they balance; generate Options before Synthesis so the
 recommendation can land forward, not just backward.
@@ -93,7 +102,34 @@ problem genuinely has two strong sides, not when one option is obviously dominan
 
 ## Output format
 
-Use brief frame headers: `**Scope —**`, `**Evidence —**`, `**Risk —**`, `**Value —**`,
-`**Options —**`, `**Pulse —**`, `**Synthesis —**`. Keep each pass a few sentences to a
-short paragraph, not essay-length. Synthesis should state the recommendation clearly and
-note which frames most influenced it.
+Fill in this skeleton, omitting frames not in your chosen sequence. Keep each pass to
+2–5 sentences (Pulse: 1–2).
+
+```markdown
+**Scope —** [the question being decided, constraints, and which sequence you're running]
+
+**Evidence —** [known facts; unknowns; what needs verification. Tool calls happen here.]
+
+**Risk —** [failure modes, hidden costs, stress cases, second-order consequences]
+
+**Value —** [benefits, leverage, opportunities — roughly the same length as Risk]
+
+**Options —** [numbered list, 5+ alternatives, no evaluation]
+
+**Pulse —** [one-sentence gut check]
+
+**Synthesis —** [the trade-off in one sentence; the recommendation; open questions]
+```
+
+For a complete worked example, read `references/example.md`. If unsure of the format,
+read it before starting.
+
+## Before finishing, verify
+
+1. Scope stated the question and the sequence; Synthesis exists and names a recommendation.
+2. No frame before Synthesis contains a recommendation — if one does, move it.
+3. Risk and Value are within roughly 2x of each other in length.
+4. Options is a numbered list with at least 5 entries and no evaluative language.
+5. Pulse (if present) is at most 2 sentences.
+
+If any check fails, fix that frame before presenting the result.

@@ -16,6 +16,10 @@ The meta-pattern underlying most creative and analytical frameworks. Inspired by
 divergent/convergent thinking research and design-process patterns. Use as a general-purpose
 exploration tool and default entry point for complex problems.
 
+**Skip check:** If the solution space is already known and small (the user is picking
+between 2–3 named options), this is an evaluation problem, not an exploration problem —
+route to `structured-evaluation` or just answer.
+
 ## Core principle
 
 Two fundamentally different thinking modes. Never mix them.
@@ -113,3 +117,19 @@ If Cycle 2's convergent phase reveals hidden assumptions → Socratic questionin
 Label phases clearly. In divergent phases, use numbered lists (countable).
 In convergent phases, state criteria and how options ranked.
 Final output: what was decided, why, and what's next.
+
+For a complete worked example (both cycles end to end), read `references/example.md`.
+If unsure of the format, read it before starting.
+
+## Before finishing, verify
+
+1. Every divergent phase produced a numbered list with at least 5 entries and contains
+   no evaluative language ("however", "but", "the problem with this").
+2. Every convergent phase stated its criteria and worked only with options already
+   generated — no new options introduced.
+3. Cycle 1 produced a problem statement in the form "The core challenge is [X] because
+   [Y], which matters because [Z]".
+4. At least one option in Cycle 2's divergent phase is unconventional or counterintuitive.
+5. The final output names the decision, the reasoning, and the next step.
+
+If any check fails, fix that phase before presenting the result.

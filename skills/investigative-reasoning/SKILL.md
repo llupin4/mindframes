@@ -15,6 +15,15 @@ description: >
 Combines Abductive Reasoning (state-bridging inference) with the Socratic Method
 (progressive questioning) for diagnostic and investigative work.
 
+**Skip check:** If the cause is already evident from the information given (a stack trace
+that names the bug, a single obvious change), state it and verify it. Don't generate
+hypothesis sets for solved problems.
+
+**Lite path:** For small diagnostic questions, compress to four steps: state the
+observation → state the expectation → give the top 3 hypotheses ranked → give one
+verification step for the leading hypothesis. Prefer the lite path done well over the
+full procedure done thinly.
+
 ## Abductive Reasoning
 
 Inference to the best explanation. Given an observed outcome, work backward to the most
@@ -105,3 +114,19 @@ For incident triage specifically:
 For abductive reasoning: label State A, State B, candidate paths, and ranked result.
 For Socratic method: present key questions and answers (or flag as open).
 Don't label question types — that's internal scaffolding.
+
+For a complete worked example (Socratic bracketing around a diagnostic pass), read
+`references/example.md`. If unsure of the format, read it before starting.
+
+## Before finishing, verify
+
+1. At least 3 candidate hypotheses (or paths) were generated before any ranking.
+2. Hypotheses are ranked, and the ranking criterion is plausibility with fewest
+   unsupported assumptions — not order of generation.
+3. Every surviving hypothesis has a concrete verification step attached.
+4. In technical domains: no hypothesis relies on a relationship outside the stated
+   ontology (no "config change altered the network route" leaps).
+5. The gap being explained is stated explicitly (observation vs. expectation, or
+   State A vs. State B) — not left implicit.
+
+If any check fails, fix that section before presenting the result.

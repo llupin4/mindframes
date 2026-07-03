@@ -1,15 +1,16 @@
 ---
 name: mindframes
 description: >
-  Use when the user asks for help with planning, ideation, brainstorming, architecture decisions,
-  root cause analysis, evaluating trade-offs, debugging complex problems, strategic thinking, or
-  any task that benefits from structured cognitive frameworks. Also trigger when the user explicitly
-  requests a thinking framework, mentions "multi-frame review", "transformation operators",
-  "contradiction resolution", "Socratic", "dialectical", "abductive reasoning", or asks to
-  "think through" a problem systematically.
+  Router for structured thinking frameworks. Use when a task would benefit from a cognitive
+  framework but it's unclear which one — the problem is ambiguous, spans multiple intents
+  (e.g., both diagnosing and deciding), or the user asks generically to "think through this
+  systematically", "use a thinking framework", or "approach this rigorously" without naming
+  one. If the task clearly matches a single sub-skill (structured-evaluation,
+  creative-transformation, investigative-reasoning, divergent-convergent), prefer invoking
+  that sub-skill directly instead of this router.
 ---
 
-# Cognitive Toolkit
+# Mindframes - A Cognitive Toolkit
 
 A meta-skill that selects and applies the right structured thinking framework for a given
 problem. It contains four sub-skills, each encoding a distinct cognitive strategy drawn from
@@ -39,47 +40,60 @@ skill directly. Examples:
 - "Help me figure out why X broke" → invoke `investigative-reasoning`
 - "Brainstorm as many ideas as possible" → invoke `divergent-convergent`
 
-### Step 2: Classify along three axes
+### Step 2: Quick route
 
-If no explicit request, read the user's query and classify it along these axes:
+If no explicit request, classify the user's **intent** — one of four verbs — and route.
+Intent alone decides the destination; there is no case this table does not cover.
 
-**Axis 1 — Intent**
-- EVALUATE: The user has something and wants to assess, compare, or decide about it
-- GENERATE: The user wants new ideas, alternatives, or creative solutions
-- INVESTIGATE: The user wants to understand why something is the way it is, or how to
-  get from state A to state B
-- EXPLORE: The user has a broad space and wants to map it before committing
+| The user wants to... | Intent | Route to |
+|----------------------|--------|----------|
+| Assess, compare, decide, review, judge | EVALUATE | `structured-evaluation` |
+| Understand why, debug, trace a cause, bridge state A → B | INVESTIGATE | `investigative-reasoning` |
+| Improve, redesign, or generate variations of something that **exists** | GENERATE (artifact) | `creative-transformation` |
+| Create ideas from scratch, nothing exists yet | GENERATE (greenfield) | `divergent-convergent` |
+| Map a broad space before committing — or you can't classify the intent | EXPLORE / unclear | `divergent-convergent` |
 
-**Axis 2 — Constraint level**
-- WELL-DEFINED: Clear inputs, known options, specific trade-offs
-- AMBIGUOUS: Fuzzy requirements, unknown solution space, open-ended
+Classification examples:
 
-**Axis 3 — Artifact presence**
-- HAS ARTIFACT: There's an existing thing (design, system, code, process) to work with
-- GREENFIELD: Starting from scratch or near-scratch
+- "Should we move ingestion to Kafka or stay on Redis Streams?" → EVALUATE → `structured-evaluation`
+- "Latency doubled after Tuesday's deploy but no code touched the hot path" → INVESTIGATE → `investigative-reasoning`
+- "Make this onboarding flow less painful" → GENERATE (artifact) → `creative-transformation`
+- "We need concepts for the Q3 hackathon" → GENERATE (greenfield) → `divergent-convergent`
+- "I don't even know what our options are for agent memory" → EXPLORE → `divergent-convergent`
+- "Compare three vendors we haven't used yet" → EVALUATE (evaluation doesn't require an
+  existing artifact) → `structured-evaluation`
 
-### Step 3: Route using the classification
+### Step 3: Apply modifiers (optional)
 
-| Intent | Constraint | Artifact | Route to |
-|--------|-----------|----------|----------|
-| EVALUATE | WELL-DEFINED | HAS ARTIFACT | Structured Evaluation |
-| EVALUATE | AMBIGUOUS | either | Structured Evaluation (extended Evidence frame) |
-| GENERATE | either | HAS ARTIFACT | Creative Transformation |
-| GENERATE | either | GREENFIELD | Divergent-Convergent Cycling |
-| INVESTIGATE | either | HAS ARTIFACT | Investigative Reasoning |
-| INVESTIGATE | either | GREENFIELD | Investigative Reasoning (Socratic-heavy) |
-| EXPLORE | WELL-DEFINED | either | Divergent-Convergent Cycling |
-| EXPLORE | AMBIGUOUS | either | Divergent-Convergent Cycling → then route again |
+Two secondary properties modulate **how** the routed skill runs — they never change
+**where** you route:
 
-When the classification is ambiguous or the problem spans multiple intents, default to
-Divergent-Convergent Cycling as the initial pass — it naturally feeds into the other sub-skills
-once the problem space is clearer.
+- **Constraint level** (well-defined vs. ambiguous): EVALUATE + ambiguous → extend the
+  Evidence frame; EXPLORE + ambiguous → after Cycle 1 converges, route again.
+- **Artifact presence**: INVESTIGATE + greenfield → lean Socratic-heavy before going
+  abductive.
 
-### Step 4: Announce and execute
+### Step 4: Trace, announce, execute
 
-Briefly tell the user which framework you're applying and why (one sentence), then invoke the
-appropriate sub-skill and execute the framework. Don't over-explain the methodology —
-just use it.
+Before executing, emit exactly one trace line so the routing decision is auditable:
+
+```
+[mindframes: INTENT → skill-name]
+```
+
+Example: `[mindframes: INVESTIGATE → investigative-reasoning]`
+
+Then tell the user which framework you're applying and why (one sentence), invoke the
+sub-skill, and execute it. Don't over-explain the methodology — just use it.
+
+### How to invoke a sub-skill
+
+Never execute a framework from memory of its name alone — always load its instructions:
+
+1. If a skill-invocation tool is available (e.g., the Skill tool in Claude Code), invoke
+   the sub-skill by name.
+2. Otherwise, read the sub-skill file directly — `skills/<skill-name>/SKILL.md`, a sibling
+   of this skill's directory — and follow its instructions.
 
 If during execution it becomes clear that a different sub-skill would serve better (e.g., you
 started with Creative Transformation but the real problem is a contradiction that needs

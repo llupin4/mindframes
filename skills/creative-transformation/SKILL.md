@@ -13,6 +13,10 @@ description: >
 
 Combines transformation operators (divergent exploration of modifications) with
 contradiction-resolution patterns for transforming existing artifacts into improved versions.
+
+**Skip check:** If the user needs one specific fix rather than exploration — a bug, a
+known change — just make the fix. Operators are for when the improvement direction is
+open.
 The contradiction-resolution principles below are inspired by systematic inventive-thinking
 traditions, but the wording and software-systems framing here is original.
 
@@ -101,3 +105,17 @@ Form: "We want to improve X, but that worsens Y."
 Label which mode is active. For the operators, use operator names as headers.
 For contradiction resolution, state the contradiction before proposing resolutions.
 Keep sections action-oriented — "do X" not "one could consider X."
+
+For a complete worked example (operators plus a contradiction hand-off), read
+`references/example.md`. If unsure of the format, read it before starting.
+
+## Before finishing, verify
+
+1. The artifact being transformed was stated in one sentence before any operator ran.
+2. All 7 operators were visited (a "nothing useful here" verdict counts as visited).
+3. 2–3 promising operators were flagged and developed further — not all 7, not zero.
+4. If contradiction mode ran: the contradiction is stated in "improving X degrades Y"
+   form, and each proposed resolution names the inventive principle it applies.
+5. Every developed idea is phrased as a concrete action, not a hypothetical.
+
+If any check fails, fix that section before presenting the result.
