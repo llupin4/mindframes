@@ -2,7 +2,10 @@
   "name": "mindframes",
   "description": "Structured thinking frameworks for AI agents: multi-frame evaluation, transformation operators, contradiction resolution, abductive reasoning, Socratic inquiry, and divergent-convergent cycling",
   "version": "1.0.0",
-  "author": "llupin4",
+  "author": {
+    "name": "llupin4",
+    "url": "https://github.com/llupin4"
+  },
   "homepage": "https://github.com/llupin4/mindframes",
   "repository": "https://github.com/llupin4/mindframes",
   "license": "Apache-2.0",

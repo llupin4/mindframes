@@ -1,14 +1,20 @@
 {
   "name": "mindframes-marketplace",
   "description": "Marketplace for mindframes cognitive toolkit",
-  "owner": "llupin4",
+  "owner": {
+    "name": "llupin4",
+    "url": "https://github.com/llupin4"
+  },
   "plugins": [
     {
       "name": "mindframes",
       "description": "Structured thinking frameworks for AI agents: multi-frame evaluation, transformation operators, contradiction resolution, abductive reasoning, Socratic inquiry, and divergent-convergent cycling",
       "version": "1.0.0",
       "source": "./",
-      "author": "llupin4"
+      "author": {
+        "name": "llupin4",
+        "url": "https://github.com/llupin4"
+      }
     }
   ]
 }

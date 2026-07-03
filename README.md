@@ -20,11 +20,14 @@ thinking framework automatically. Four specialized sub-skills can also be invoke
 
 ### Claude Code (recommended)
 
-Register as a plugin marketplace:
+Register the marketplace, then install the plugin (run both from inside Claude Code):
 
 ```bash
-# From Claude Code
-/plugin install mindframes@llupin4/mindframes
+# 1. Add this repo as a plugin marketplace (GitHub owner/repo shorthand)
+/plugin marketplace add llupin4/mindframes
+
+# 2. Install the plugin: <plugin-name>@<marketplace-name>
+/plugin install mindframes@mindframes-marketplace
 ```
 
 Or add the repo as an additional directory:
